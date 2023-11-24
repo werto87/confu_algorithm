@@ -1,0 +1,12 @@
+{
+    "version": 4,
+    "vendor": {
+        "conan": {}
+    },
+    "include": [
+        "/home/walde/CLionProjects/leetcode/build-debug-gcc/CMakePresets.json",
+        "/home/walde/CLionProjects/leetcode/build-release-gcc/CMakePresets.json",
+        "/home/walde/CLionProjects/leetcode/build-debug-clang/CMakePresets.json",
+        "/home/walde/CLionProjects/leetcode/build-release-clang/CMakePresets.json"
+    ]
+}
