@@ -1,4 +1,4 @@
-#include "src/util.hxx"
+#include "src/createChainViews.hxx"
 #include <catch2/catch.hpp>
 
 TEST_CASE ("createChainViews1", "[create same number chain]")
