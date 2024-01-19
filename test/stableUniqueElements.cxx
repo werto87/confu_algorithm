@@ -1,4 +1,4 @@
-#include "src/stableUniqueElements.hxx"
+#include "confu_algorithm/stableUniqueElements.hxx"
 #include <catch2/catch.hpp>
 
 TEST_CASE ("stableUniqueElements int removes duplicates but with out altering order")

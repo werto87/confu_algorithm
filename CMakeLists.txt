@@ -17,7 +17,7 @@ enable_sanitizers(${PROJECT_OPTIONS})
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(TARGET_NAME_LIB project_lib)
 add_library(${TARGET_NAME_LIB} INTERFACE)
-add_subdirectory(src)
+add_subdirectory(confu_algorithm)
 target_link_libraries(${TARGET_NAME_LIB} INTERFACE
         ${PROJECT_WARNINGS}
         ${PROJECT_OPTIONS}

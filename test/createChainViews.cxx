@@ -1,4 +1,4 @@
-#include "src/createChainViews.hxx"
+#include "confu_algorithm/createChainViews.hxx"
 #include <catch2/catch.hpp>
 
 TEST_CASE ("createChainViews create same number chain")
