@@ -1,1 +1,1 @@
-# using leetcode problems to find new algorithms and practice
+# confu_algorithm library
