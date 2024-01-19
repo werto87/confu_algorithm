@@ -4,7 +4,6 @@ project(project VERSION 1.0.0
         LANGUAGES CXX
         )
 include(cmake/Cache.cmake)
-find_package(Boost REQUIRED)
 set(PROJECT_WARNINGS project_warning)
 add_library(${PROJECT_WARNINGS} INTERFACE)
 include(cmake/CompilerWarnings.cmake)
@@ -22,8 +21,6 @@ add_subdirectory(src)
 target_link_libraries(${TARGET_NAME_LIB} INTERFACE
         ${PROJECT_WARNINGS}
         ${PROJECT_OPTIONS}
-        Boost::headers
-        Boost::json
         )
 
 enable_testing()
