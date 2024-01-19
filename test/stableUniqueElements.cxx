@@ -1,7 +1,7 @@
 #include "src/stableUniqueElements.hxx"
 #include <catch2/catch.hpp>
 
-TEST_CASE ("stableUniqueElements int", "[removes duplicates but with out altering order]")
+TEST_CASE ("stableUniqueElements int removes duplicates but with out altering order")
 {
   auto result = stableUniqueElements (std::vector{ 3, 2, 1, 1, 2 });
   REQUIRE (result.size () == 3);
@@ -9,7 +9,7 @@ TEST_CASE ("stableUniqueElements int", "[removes duplicates but with out alterin
   REQUIRE (result.at (1) == 2);
   REQUIRE (result.at (2) == 1);
 }
-TEST_CASE ("stableUniqueElements user defined type", "[removes duplicates but with out altering order]")
+TEST_CASE ("stableUniqueElements user defined type removes duplicates but with out altering order")
 {
   struct Student
   {
