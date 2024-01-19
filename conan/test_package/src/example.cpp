@@ -11,7 +11,7 @@ main ()
       std::cout << num << ' ';
     }
   std::cout << ']' << std::endl;
-  auto result = createChainViews (nums.cbegin (), nums.cend (), [] (auto sequence) {
+  auto result = confu_algorithm::createChainViews (nums.cbegin (), nums.cend (), [] (auto sequence) {
     auto const &lastItem = *(sequence.end () - 1);
     auto const &secondLastItem = *(sequence.end () - 2);
     return lastItem == secondLastItem;
