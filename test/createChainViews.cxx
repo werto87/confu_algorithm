@@ -76,17 +76,24 @@ TEST_CASE ("createChainViews sum less than 4")
   REQUIRE (result.at (3)[0] == 2);
 }
 
-TEST_CASE ("createChainViews sum less than 4 only one element")
+TEST_CASE ("createChainViews one element all true")
 {
   auto nums = std::vector{ 1 };
-  auto result = createChainViews (nums.cbegin (), nums.cend (), [] (auto sequence) { return std::accumulate (sequence.begin (), sequence.end (), 0) < 4; });
+  auto result = createChainViews (nums.cbegin (), nums.cend (), [] (auto) { return true; });
   REQUIRE (result.size () == 1);
 }
 
-TEST_CASE ("createChainViews sum less than 4 two elements")
+TEST_CASE ("createChainViews one element all false")
+{
+  auto nums = std::vector{ 1 };
+  auto result = createChainViews (nums.cbegin (), nums.cend (), [] (auto) { return false; });
+  REQUIRE (result.size () == 1);
+}
+
+TEST_CASE ("createChainViews two elements all true")
 {
   auto nums = std::vector{ 1, 1 };
-  auto result = createChainViews (nums.cbegin (), nums.cend (), [] (auto sequence) { return std::accumulate (sequence.begin (), sequence.end (), 0) < 4; });
+  auto result = createChainViews (nums.cbegin (), nums.cend (), [] (auto) { return true; });
   REQUIRE (result.size () == 1);
   REQUIRE (result.at (0).size () == 2);
 }
