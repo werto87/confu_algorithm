@@ -3,7 +3,6 @@ project(project VERSION 1.0.0
         DESCRIPTION project
         LANGUAGES CXX
         )
-cmake_policy(SET CMP0015 NEW)
 include(cmake/Cache.cmake)
 find_package(Boost REQUIRED)
 set(PROJECT_WARNINGS project_warning)
