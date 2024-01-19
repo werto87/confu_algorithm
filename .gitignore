@@ -4,4 +4,4 @@ build-*/*
 .idea
 compile_commands.json
 CMakeUserPresets.json
-
+test_package/build/*
