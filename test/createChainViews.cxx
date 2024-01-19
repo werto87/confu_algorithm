@@ -18,7 +18,7 @@ TEST_CASE ("createChainViews create same number chain")
 TEST_CASE ("createChainViews all false")
 {
   auto nums = std::vector{ 1, 2, 3, 4, 5, 6, 7, 8 };
-  auto result = createChainViews (nums.cbegin (), nums.cend (), [] (auto sequence) { return false; });
+  auto result = createChainViews (nums.cbegin (), nums.cend (), [] (auto) { return false; });
   REQUIRE (result.size () == 8);
   REQUIRE (result.at (0).size () == 1);
   REQUIRE (result.at (7).size () == 1);
