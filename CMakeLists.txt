@@ -29,10 +29,3 @@ target_link_libraries(${TARGET_NAME_LIB} INTERFACE
 
 enable_testing()
 add_subdirectory(test)
-set(TARGET_NAME project)
-add_executable(${TARGET_NAME}
-        main.cxx
-        )
-target_link_libraries(${TARGET_NAME} PUBLIC
-        ${TARGET_NAME_LIB}
-        )
