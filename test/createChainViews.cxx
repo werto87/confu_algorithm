@@ -1,6 +1,8 @@
 #include "confu_algorithm/createChainViews.hxx"
 #include <catch2/catch.hpp>
 
+using namespace confu_algorithm;
+
 TEST_CASE ("createChainViews create same number chain")
 {
   auto nums = std::vector{ 1, 1, 1, 2, 2, 3, 3, 3 };

@@ -19,6 +19,8 @@
  * example output:
  * [[0,0],[1,1,1]]
  */
+namespace confu_algorithm{
+
 auto
 createChainViewsIncludeBreakingElement (auto cbegin, auto cend, auto pred)
 {
@@ -85,4 +87,5 @@ createChainViews (auto cbegin, auto cend, auto pred)
         }
       return result;
     }
+}
 }

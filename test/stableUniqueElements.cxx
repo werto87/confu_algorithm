@@ -1,6 +1,6 @@
 #include "confu_algorithm/stableUniqueElements.hxx"
 #include <catch2/catch.hpp>
-
+using namespace confu_algorithm;
 TEST_CASE ("stableUniqueElements int removes duplicates but with out altering order")
 {
   auto result = stableUniqueElements (std::vector{ 3, 2, 1, 1, 2 });

@@ -4,7 +4,7 @@
 #include <ranges>
 #include <set>
 #pragma once
-
+namespace confu_algorithm{
 /**
  * requires: the elements of the sequence to be comparable using <
  * @param sequence a sequence
@@ -22,4 +22,5 @@ stableUniqueElements (T const &sequence)
       result.push_back (num);
     }
   return result;
+}
 }
