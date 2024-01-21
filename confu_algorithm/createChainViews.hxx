@@ -37,7 +37,6 @@ createChainViewsIncludeBreakingElement (auto cbegin, auto cend, auto pred)
           if (not pred (std::span{ subsequenceBegin, itr + 1 }))
             {
               result.push_back ({ subsequenceBegin, itr + 1 });
-              auto test = std::vector<int>{ result.back ().begin (), result.back ().end () };
               subsequenceBegin = itr + 1;
             }
           else if (cend - 1 == itr)
