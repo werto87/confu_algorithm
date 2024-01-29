@@ -3,6 +3,7 @@
 //
 #include <ranges>
 #include <set>
+#include <algorithm>
 #pragma once
 namespace confu_algorithm{
 /**
@@ -17,10 +18,7 @@ stableUniqueElements (T const &sequence)
   auto result = T{};
   using sequencElementType = typename std::decay<decltype (result.front ())>::type;
   auto const onlyUniqueNumbers = [mySet = std::set<sequencElementType>{}] (auto num) mutable { return mySet.insert (num).second; };
-  for (auto num : sequence | std::views::filter (onlyUniqueNumbers))
-    {
-      result.push_back (num);
-    }
+  std::ranges::copy_if(sequence,std::back_inserter (result),onlyUniqueNumbers);
   return result;
 }
 }

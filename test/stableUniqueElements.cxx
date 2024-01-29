@@ -21,4 +21,5 @@ TEST_CASE ("stableUniqueElements user defined type removes duplicates but with o
   REQUIRE (result.at (0) == Student{ 3 });
   REQUIRE (result.at (1) == Student{ 2 });
   REQUIRE (result.at (2) == Student{ 1 });
+  REQUIRE (result.at (0).id != result.at (1).id);
 }
