@@ -78,6 +78,12 @@ TEST_CASE ("createChainViews sum less than 4")
   REQUIRE (result.at (3)[0] == 2);
 }
 
+TEST_CASE ("createChainViews empty vector")
+{
+  auto vec = std::vector<uint8_t>{};
+  REQUIRE (createChainViews (vec.cbegin (), vec.cend (), [] (auto seq) { return seq.front () % 2; }).empty ());
+}
+
 TEST_CASE ("createChainViews one element all true")
 {
   auto nums = std::vector{ 1 };
@@ -187,4 +193,10 @@ TEST_CASE ("createChainViewsIncludeBreakingElement last two true rest false")
   REQUIRE (result.at (2)[0] == 3);
   REQUIRE (result.at (3)[0] == 4);
   REQUIRE (result.at (3)[1] == 5);
+}
+
+TEST_CASE ("createChainViewsIncludeBreakingElement empty vector")
+{
+  auto vec = std::vector<uint8_t>{};
+  REQUIRE (createChainViewsIncludeBreakingElement (vec.cbegin (), vec.cend (), [] (auto seq) { return seq.front () % 2; }).empty ());
 }

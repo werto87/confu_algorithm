@@ -69,7 +69,11 @@ createChainViewsIncludeBreakingElement (std::contiguous_iterator auto cbegin, st
 auto
 createChainViews (std::contiguous_iterator auto cbegin, std::contiguous_iterator auto cend, auto pred)
 {
-  if (std::span{ cbegin, cend }.size () == 1)
+  if (std::span{ cbegin, cend }.size () == 0)
+    {
+      return std::vector<decltype (std::span{ cbegin, cend })>{};
+    }
+  else if (std::span{ cbegin, cend }.size () == 1)
     {
       return std::vector<decltype (std::span{ cbegin, cend })>{ { cbegin, cend } };
     }
