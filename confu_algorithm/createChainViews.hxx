@@ -13,7 +13,7 @@
 
 namespace confu_algorithm
 {
-
+// TODO add option to short cut this function for example for return a chain with length of 3 or more if there is not one with length 3 or more return the longest
 /**
  * @brief returns vector with indexes where a chain will break. Does NOT contain the index of the breaking element.
  * @param cbegin iterator to the begin of a sequence
@@ -134,7 +134,6 @@ createChainViews (std::contiguous_iterator auto cbegin, std::contiguous_iterator
   return result;
 }
 
-// TODO add option to short cut this function for example for return a chain with length of 3 or more if there is not one with length 3 or more return the longest
 //  In this case it would be nice to stop looking for more chains and just return
 /**
  * breaks the chain if pred evaluates to false does contain the breaking element
