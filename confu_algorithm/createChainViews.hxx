@@ -3,9 +3,12 @@
 //
 
 #pragma once
+#include <algorithm>
 #include <boost/numeric/conversion/cast.hpp>
+#include <cstdint>
 #include <iterator>
 #include <span>
+#include <type_traits>
 #include <vector>
 
 namespace confu_algorithm
@@ -105,12 +108,11 @@ chainBreaksIncludeBreakingElement (std::contiguous_iterator auto cbegin, std::co
     }
 }
 
-// TODO createChainViews from breakChain results
 /**
  * breaks the chain if pred evaluates to false does NOT contain the breaking element
  * @param cbegin iterator to the begin of a continuous sequence
  * @param cend iterator to the last element+1 of a continuous sequence
- * @param pred predicate to evaluate when to break the chain. The predicate gets called with a subsequence representing the current chain.
+ * @param pred predicate to evaluate when to break the chain. The predicate gets called with a beginning and end of a sequence representing the current chain.
  * @return spans to view the chains created with the predicate pred from the sequence starting at cbegin and ending at cend
  *
  * example input:
@@ -119,35 +121,17 @@ chainBreaksIncludeBreakingElement (std::contiguous_iterator auto cbegin, std::co
  * example output:
  * [[0,0],[1,1,1]]
  */
+
 auto
 createChainViews (std::contiguous_iterator auto cbegin, std::contiguous_iterator auto cend, auto pred)
 {
-  if (std::span{ cbegin, cend }.size () == 0)
-    {
-      return std::vector<decltype (std::span{ cbegin, cend })>{};
-    }
-  else if (std::span{ cbegin, cend }.size () == 1)
-    {
-      return std::vector<decltype (std::span{ cbegin, cend })>{ { cbegin, cend } };
-    }
-  else
-    {
-      auto result = std::vector<decltype (std::span{ cbegin, cend })>{};
-      auto subsequenceBegin = cbegin;
-      for (auto itr = cbegin + 1; itr != cend; ++itr)
-        {
-          if (not pred (std::span{ subsequenceBegin, itr + 1 }))
-            {
-              result.push_back ({ subsequenceBegin, itr });
-              subsequenceBegin = itr;
-            }
-          if (cend - 1 == itr)
-            {
-              result.push_back ({ subsequenceBegin, cend });
-            }
-        }
-      return result;
-    }
+  auto _chainBreaks = chainBreaks (cbegin, cend, pred);
+  auto result = std::vector<decltype (std::span{ cbegin, cend })>{};
+  std::ranges::for_each (_chainBreaks, [beginOfChain = uint64_t{}, &result, cbegin] (auto const &value) mutable {
+    result.push_back ({ cbegin + boost::numeric_cast<int64_t> (beginOfChain), cbegin + boost::numeric_cast<int64_t> (value) });
+    beginOfChain = value;
+  });
+  return result;
 }
 
 // TODO add option to short cut this function for example for return a chain with length of 3 or more if there is not one with length 3 or more return the longest
@@ -156,7 +140,7 @@ createChainViews (std::contiguous_iterator auto cbegin, std::contiguous_iterator
  * breaks the chain if pred evaluates to false does contain the breaking element
  * @param cbegin iterator to the begin of a continuous sequence
  * @param cend iterator to the last element+1 of a continuous sequence
- * @param pred predicate to evaluate when to break the chain. The predicate gets called with a subsequence representing the current chain.
+ * @param pred predicate to evaluate when to break the chain. The predicate gets called with a beginning and end of a sequence representing the current chain.
  * @return spans to view the chains created with the predicate pred from the sequence starting at cbegin and ending at cend
  *
  * example input:
@@ -166,32 +150,16 @@ createChainViews (std::contiguous_iterator auto cbegin, std::contiguous_iterator
  * [[0,0,1],[1,1]]
  */
 
-// TODO createChainViewsIncludeBreakingElement from chainBreaksIncludeBreakingElement results
 auto
 createChainViewsIncludeBreakingElement (std::contiguous_iterator auto cbegin, std::contiguous_iterator auto cend, auto pred)
 {
-  if (std::span{ cbegin, cend }.size () == 1)
-    {
-      return std::vector<decltype (std::span{ cbegin, cend })>{ { cbegin, cend } };
-    }
-  else
-    {
-      auto result = std::vector<decltype (std::span{ cbegin, cend })>{};
-      auto subsequenceBegin = cbegin;
-      for (auto itr = cbegin; itr != cend; ++itr)
-        {
-          if (not pred (std::span{ subsequenceBegin, itr + 1 }))
-            {
-              result.push_back ({ subsequenceBegin, itr + 1 });
-              subsequenceBegin = itr + 1;
-            }
-          else if (cend - 1 == itr)
-            {
-              result.push_back ({ subsequenceBegin, cend });
-            }
-        }
-      return result;
-    }
+  auto _chainBreaks = chainBreaksIncludeBreakingElement (cbegin, cend, pred);
+  auto result = std::vector<decltype (std::span{ cbegin, cend })>{};
+  std::ranges::for_each (_chainBreaks, [beginOfChain = uint64_t{}, &result, cbegin] (auto const &value) mutable {
+    result.push_back ({ cbegin + boost::numeric_cast<int64_t> (beginOfChain), cbegin + boost::numeric_cast<int64_t> (value) });
+    beginOfChain = value;
+  });
+  return result;
 }
 
 }

@@ -1,15 +1,16 @@
 #include "confu_algorithm/createChainViews.hxx"
 #include <catch2/catch.hpp>
 #include <cstdint>
+#include <vector>
 
 using namespace confu_algorithm;
 
 TEST_CASE ("createChainViews create same number chain")
 {
   auto nums = std::vector{ 1, 1, 1, 2, 2, 3, 3, 3 };
-  auto result = createChainViews (nums.cbegin (), nums.cend (), [] (auto sequence) {
-    auto const &lastItem = *(sequence.end () - 1);
-    auto const &secondLastItem = *(sequence.end () - 2);
+  auto result = createChainViews (nums.cbegin (), nums.cend (), [] (auto const &, auto const &cend) {
+    auto const &lastItem = *(cend - 1);
+    auto const &secondLastItem = *(cend - 2);
     return lastItem == secondLastItem;
   });
   REQUIRE (result.size () == 3);
@@ -21,9 +22,9 @@ TEST_CASE ("createChainViews create same number chain")
 TEST_CASE ("createChainViews first 2 true rest false")
 {
   auto nums = std::vector{ 1, 1, 3, 4, 5, 6, 7, 8 };
-  auto result = createChainViews (nums.cbegin (), nums.cend (), [] (auto sequence) {
-    auto const &lastItem = *(sequence.end () - 1);
-    auto const &secondLastItem = *(sequence.end () - 2);
+  auto result = createChainViews (nums.cbegin (), nums.cend (), [] (auto const &, auto const &cend) {
+    auto const &lastItem = *(cend - 1);
+    auto const &secondLastItem = *(cend - 2);
     return lastItem == secondLastItem;
   });
   REQUIRE (result.size () == 7);
@@ -36,9 +37,9 @@ TEST_CASE ("createChainViews first 2 true rest false")
 TEST_CASE ("createChainViews greater by one chain")
 {
   auto nums = std::vector{ 1, 2, 3, 4, 5, 6, 7, 8 };
-  auto result = createChainViews (nums.cbegin (), nums.cend (), [] (auto sequence) {
-    auto const &lastItem = *(sequence.end () - 1);
-    auto const &secondLastItem = *(sequence.end () - 2);
+  auto result = createChainViews (nums.cbegin (), nums.cend (), [] (auto const &, auto const &cend) {
+    auto const &lastItem = *(cend - 1);
+    auto const &secondLastItem = *(cend - 2);
     return lastItem - secondLastItem == 1;
   });
   REQUIRE (result.size () == 1);
@@ -48,9 +49,9 @@ TEST_CASE ("createChainViews greater by one chain")
 TEST_CASE ("createChainViews last two false")
 {
   auto nums = std::vector{ 1, 1, 1, 1, 1, 1, 7, 8 };
-  auto result = createChainViews (nums.cbegin (), nums.cend (), [] (auto sequence) {
-    auto const &lastItem = *(sequence.end () - 1);
-    auto const &secondLastItem = *(sequence.end () - 2);
+  auto result = createChainViews (nums.cbegin (), nums.cend (), [] (auto const &, auto const &cend) {
+    auto const &lastItem = *(cend - 1);
+    auto const &secondLastItem = *(cend - 2);
     return lastItem - secondLastItem == 1;
   });
   REQUIRE (result.size () == 7);
@@ -60,7 +61,7 @@ TEST_CASE ("createChainViews last two false")
 TEST_CASE ("createChainViews sum less than 4")
 {
   auto nums = std::vector{ 1, 1, 1, 1, 1, 1, 3, 2 };
-  auto result = createChainViews (nums.cbegin (), nums.cend (), [] (auto sequence) { return std::accumulate (sequence.begin (), sequence.end (), 0) < 4; });
+  auto result = createChainViews (nums.cbegin (), nums.cend (), [] (auto const &cbegin, auto const &cend) { return std::accumulate (cbegin, cend, 0) < 4; });
   REQUIRE (result.size () == 4);
   REQUIRE (result.at (0).size () == 3);
   REQUIRE (result.at (1).size () == 3);
@@ -73,27 +74,27 @@ TEST_CASE ("createChainViews sum less than 4")
 TEST_CASE ("createChainViews empty vector")
 {
   auto vec = std::vector<uint8_t>{};
-  REQUIRE (createChainViews (vec.cbegin (), vec.cend (), [] (auto seq) { return seq.front () % 2; }).empty ());
+  REQUIRE (createChainViews (vec.cbegin (), vec.cend (), [] (auto const &cbegin, auto const &cend) { return std::vector (cbegin, cend).front () % 2; }).empty ());
 }
 
 TEST_CASE ("createChainViews one element all true")
 {
   auto nums = std::vector{ 1 };
-  auto result = createChainViews (nums.cbegin (), nums.cend (), [] (auto) { return true; });
+  auto result = createChainViews (nums.cbegin (), nums.cend (), [] (auto, auto) { return true; });
   REQUIRE (result.size () == 1);
 }
 
 TEST_CASE ("createChainViews one element all false")
 {
   auto nums = std::vector{ 1 };
-  auto result = createChainViews (nums.cbegin (), nums.cend (), [] (auto) { return false; });
+  auto result = createChainViews (nums.cbegin (), nums.cend (), [] (auto, auto) { return false; });
   REQUIRE (result.size () == 1);
 }
 
 TEST_CASE ("createChainViews two elements all true")
 {
   auto nums = std::vector{ 1, 1 };
-  auto result = createChainViews (nums.cbegin (), nums.cend (), [] (auto) { return true; });
+  auto result = createChainViews (nums.cbegin (), nums.cend (), [] (auto, auto) { return true; });
   REQUIRE (result.size () == 1);
   REQUIRE (result.at (0).size () == 2);
 }
@@ -101,7 +102,7 @@ TEST_CASE ("createChainViews two elements all true")
 TEST_CASE ("createChainViews two elements only first true second false")
 {
   auto nums = std::vector{ 3, 3 };
-  auto result = createChainViews (nums.cbegin (), nums.cend (), [] (auto sequence) { return std::accumulate (sequence.begin (), sequence.end (), 0) < 4; });
+  auto result = createChainViews (nums.cbegin (), nums.cend (), [] (auto const &cbegin, auto const &cend) { return std::accumulate (cbegin, cend, 0) < 4; });
   REQUIRE (result.size () == 2);
   REQUIRE (result.at (0).size () == 1);
 }
@@ -109,7 +110,7 @@ TEST_CASE ("createChainViews two elements only first true second false")
 TEST_CASE ("createChainViews pred evals to true all the time returns a vector wit one span containing all elements")
 {
   auto nums = std::vector{ 1, 2 };
-  auto result = createChainViews (nums.cbegin (), nums.cend (), [] (auto) { return true; });
+  auto result = createChainViews (nums.cbegin (), nums.cend (), [] (auto, auto) { return true; });
   REQUIRE (result.size () == 1);
   REQUIRE (result.at (0)[0] == 1);
   REQUIRE (result.at (0)[1] == 2);
@@ -118,7 +119,7 @@ TEST_CASE ("createChainViews pred evals to true all the time returns a vector wi
 TEST_CASE ("createChainViewsIncludeBreakingElement all true")
 {
   auto nums = std::vector{ 1, 2, 3, 4, 5 };
-  auto result = createChainViewsIncludeBreakingElement (nums.cbegin (), nums.cend (), [] (auto) { return true; });
+  auto result = createChainViewsIncludeBreakingElement (nums.cbegin (), nums.cend (), [] (auto, auto) { return true; });
   REQUIRE (result.size () == 1);
   REQUIRE (result.at (0).size () == 5);
   REQUIRE (result.at (0)[0] == 1);
@@ -131,7 +132,7 @@ TEST_CASE ("createChainViewsIncludeBreakingElement all true")
 TEST_CASE ("createChainViewsIncludeBreakingElement all false")
 {
   auto nums = std::vector{ 1, 2, 3, 4, 5 };
-  auto result = createChainViewsIncludeBreakingElement (nums.cbegin (), nums.cend (), [] (auto) { return false; });
+  auto result = createChainViewsIncludeBreakingElement (nums.cbegin (), nums.cend (), [] (auto, auto) { return false; });
   REQUIRE (result.size () == 5);
   REQUIRE (result.at (0)[0] == 1);
   REQUIRE (result.at (1)[0] == 2);
@@ -143,8 +144,8 @@ TEST_CASE ("createChainViewsIncludeBreakingElement all false")
 TEST_CASE ("createChainViewsIncludeBreakingElement first two true rest false")
 {
   auto nums = std::vector{ 1, 2, 3, 4, 5 };
-  auto result = createChainViewsIncludeBreakingElement (nums.cbegin (), nums.cend (), [] (auto sequence) {
-    auto vec = std::vector<int>{ sequence.begin (), sequence.end () };
+  auto result = createChainViewsIncludeBreakingElement (nums.cbegin (), nums.cend (), [] (auto const &cbegin, auto const &cend) {
+    auto vec = std::vector<int>{ cbegin, cend };
     auto sum = std::accumulate (vec.cbegin (), vec.cend (), 0);
     return sum < 3;
   });
@@ -160,8 +161,8 @@ TEST_CASE ("createChainViewsIncludeBreakingElement first two true rest false")
 TEST_CASE ("createChainViewsIncludeBreakingElement first two true and last true rest false")
 {
   auto nums = std::vector{ 1, 2, 3, 4, 5 };
-  auto result = createChainViewsIncludeBreakingElement (nums.cbegin (), nums.cend (), [] (auto sequence) {
-    auto vec = std::vector<int>{ sequence.begin (), sequence.end () };
+  auto result = createChainViewsIncludeBreakingElement (nums.cbegin (), nums.cend (), [] (auto const &cbegin, auto const &cend) {
+    auto vec = std::vector<int>{ cbegin, cend };
     auto sum = std::accumulate (vec.cbegin (), vec.cend (), 0);
     return sum < 3 || vec.back () == 5;
   });
@@ -177,7 +178,10 @@ TEST_CASE ("createChainViewsIncludeBreakingElement first two true and last true 
 TEST_CASE ("createChainViewsIncludeBreakingElement last two true rest false")
 {
   auto nums = std::vector{ 1, 2, 3, 4, 5 };
-  auto result = createChainViewsIncludeBreakingElement (nums.cbegin (), nums.cend (), [] (auto sequence) { return sequence.back () == 4 || sequence.back () == 5; });
+  auto result = createChainViewsIncludeBreakingElement (nums.cbegin (), nums.cend (), [] (auto const &cbegin, auto const &cend) {
+    auto vec = std::vector (cbegin, cend);
+    return vec.back () == 4 || vec.back () == 5;
+  });
   REQUIRE (result.size () == 4);
   REQUIRE (result.at (3).size () == 2);
   REQUIRE (result.at (0)[0] == 1);
@@ -190,7 +194,7 @@ TEST_CASE ("createChainViewsIncludeBreakingElement last two true rest false")
 TEST_CASE ("createChainViewsIncludeBreakingElement empty vector")
 {
   auto vec = std::vector<uint8_t>{};
-  REQUIRE (createChainViewsIncludeBreakingElement (vec.cbegin (), vec.cend (), [] (auto seq) { return seq.front () % 2; }).empty ());
+  REQUIRE (createChainViewsIncludeBreakingElement (vec.cbegin (), vec.cend (), [] (auto const &cbegin, auto const &cend) { return std::vector (cbegin, cend).front () % 2; }).empty ());
 }
 
 TEST_CASE ("chainBreaks all false")
@@ -395,8 +399,8 @@ TEST_CASE ("chainBreaksIncludeBreakingElement different number")
 TEST_CASE ("createChainViews different number")
 {
   auto nums = std::vector{ 0, 0, 1, 1, 1 };
-  auto result = createChainViews (nums.cbegin (), nums.cend (), [lastValueOld = nums.front ()] (auto seq) mutable {
-    auto const &lastValueNew = seq.back ();
+  auto result = createChainViews (nums.cbegin (), nums.cend (), [lastValueOld = nums.front ()] (auto const &cbegin, auto const &cend) mutable {
+    auto const lastValueNew = std::vector (cbegin, cend).back ();
     auto result = lastValueOld == lastValueNew;
     lastValueOld = lastValueNew;
     return result;
@@ -409,8 +413,8 @@ TEST_CASE ("createChainViews different number")
 TEST_CASE ("createChainViewsIncludeBreakingElement different number")
 {
   auto nums = std::vector{ 0, 0, 1, 1, 1 };
-  auto result = createChainViewsIncludeBreakingElement (nums.cbegin (), nums.cend (), [lastValueOld = nums.front ()] (auto seq) mutable {
-    auto const &lastValueNew = seq.back ();
+  auto result = createChainViewsIncludeBreakingElement (nums.cbegin (), nums.cend (), [lastValueOld = nums.front ()] (auto const &cbegin, auto const &cend) mutable {
+    auto const lastValueNew = std::vector (cbegin, cend).back ();
     auto result = lastValueOld == lastValueNew;
     lastValueOld = lastValueNew;
     return result;
