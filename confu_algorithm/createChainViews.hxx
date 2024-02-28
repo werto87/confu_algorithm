@@ -81,7 +81,7 @@ chainBreaks (auto cbegin, auto cend, auto pred)
  */
 template <typename T = uint64_t>
 std::vector<T>
-chainBreaksIncludeBreakingElement (std::contiguous_iterator auto cbegin, std::contiguous_iterator auto cend, auto pred)
+chainBreaksIncludeBreakingElement (auto cbegin, auto cend, auto pred)
 {
   auto const containerSize = std::distance (cbegin, cend);
   if (containerSize == 1)
