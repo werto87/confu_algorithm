@@ -10,19 +10,18 @@
 
 namespace confu_algorithm
 {
-template <typename ValueType>
-std::optional<typename std::vector<ValueType>::iterator>
-binaryFind (std::vector<ValueType> const &vec, ValueType const &valueToLookFor)
+template <typename Iterator>
+Iterator
+binaryFind (Iterator first, Iterator last, auto const &valueToLookFor)
 {
-  auto pos = std::lower_bound (std::begin (vec), std::end (vec), valueToLookFor);
-
-  if (pos != std::end (vec) and !(valueToLookFor < *pos))
+  auto pos = std::lower_bound (first, last, valueToLookFor);
+  if (pos != last and !(valueToLookFor < *pos))
     {
       return pos;
     }
   else
     {
-      return std::nullopt;
+      return last;
     }
 }
 }
