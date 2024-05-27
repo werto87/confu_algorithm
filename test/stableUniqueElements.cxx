@@ -9,11 +9,14 @@ TEST_CASE ("stableUniqueElements int removes duplicates but with out altering or
   REQUIRE (result.at (1) == 2);
   REQUIRE (result.at (2) == 1);
 }
-TEST_CASE ("stableUniqueElements user defined type removes duplicates but with out altering order")
+TEST_CASE ("stableUniqueElements user defined type removes duplicates")
 {
   struct Student
   {
+    // clang-format off
+    [[nodiscard]]
     auto operator<=> (const Student &) const = default;
+    // clang-format on
     int id{};
   };
   auto result = stableUniqueElements (std::vector<Student>{ { 3 }, { 2 }, { 1 }, { 1 }, { 2 } });

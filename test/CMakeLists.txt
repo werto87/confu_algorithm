@@ -2,6 +2,7 @@ add_executable(_test
         createChainViews.cxx
         playground.cxx
         stableUniqueElements.cxx
+        binaryFind.cxx
         )
 find_package(Catch2)
 target_link_libraries(_test

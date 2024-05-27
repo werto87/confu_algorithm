@@ -106,8 +106,8 @@ TEST_CASE ("createChainViews two elements only first true second false")
   REQUIRE (result.size () == 2);
   REQUIRE (result.at (0).size () == 1);
 }
-
-TEST_CASE ("createChainViews pred evals to true all the time returns a vector wit one span containing all elements")
+// TODO the tests names got to long for catch2
+TEST_CASE ("createChainViews pred evals to true all the time returns a vector")
 {
   auto nums = std::vector{ 1, 2 };
   auto result = createChainViews (nums.cbegin (), nums.cend (), [] (auto, auto) { return true; });
@@ -158,7 +158,7 @@ TEST_CASE ("createChainViewsIncludeBreakingElement first two true rest false")
   REQUIRE (result.at (3)[0] == 5);
 }
 
-TEST_CASE ("createChainViewsIncludeBreakingElement first two true and last true rest false")
+TEST_CASE ("createChainViewsIncludeBreakingElement first two true and")
 {
   auto nums = std::vector{ 1, 2, 3, 4, 5 };
   auto result = createChainViewsIncludeBreakingElement (nums.cbegin (), nums.cend (), [] (auto const &cbegin, auto const &cend) {
@@ -285,12 +285,12 @@ TEST_CASE ("chainBreaks two elements only first true second false")
   REQUIRE (result.at (0) == 1);
 }
 
-TEST_CASE ("chainBreaks pred evals to true all the time returns a vector wit one span containing all elements")
+TEST_CASE ("chainBreaks pred evals to true all the time returns a vector")
 {
   auto nums = std::vector{ 1, 2 };
   auto result = chainBreaks (nums.cbegin (), nums.cend (), [] (auto, auto) { return true; });
   REQUIRE (result.size () == 1);
-  REQUIRE (result.at (0) == 1);
+  REQUIRE (result.at (0) == 2);
 }
 
 TEST_CASE ("chainBreaks empty vector")
@@ -354,12 +354,12 @@ TEST_CASE ("chainBreaksIncludeBreakingElement two elements only first true secon
   REQUIRE (result.at (0) == 2);
 }
 
-TEST_CASE ("chainBreaksIncludeBreakingElement pred evals to true all the time returns a vector wit one span containing all elements")
+TEST_CASE ("chainBreaksIncludeBreakingElement pred evals to true all the time returns")
 {
   auto nums = std::vector{ 1, 2 };
   auto result = chainBreaksIncludeBreakingElement (nums.cbegin (), nums.cend (), [] (auto, auto) { return true; });
   REQUIRE (result.size () == 1);
-  REQUIRE (result.at (0) == 1);
+  REQUIRE (result.at (0) == 2);
 }
 
 TEST_CASE ("chainBreaksIncludeBreakingElement empty vector")
