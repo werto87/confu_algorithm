@@ -24,6 +24,6 @@ set_target_properties(
              CXX_VISIBILITY_PRESET hidden
              VISIBILITY_INLINES_HIDDEN YES)
 
-install(FILES createChainViews.hxx stableUniqueElements.hxx binaryFind.hxx
+install(FILES createChainViews.hxx stableUniqueElements.hxx binaryFind.hxx constrainedNumber.hxx
         DESTINATION include/confu_algorithm)
 install(TARGETS confu_algorithm DESTINATION lib)

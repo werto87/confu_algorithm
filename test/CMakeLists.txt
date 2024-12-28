@@ -3,6 +3,7 @@ add_executable(_test
         playground.cxx
         stableUniqueElements.cxx
         binaryFind.cxx
+        constrainedNumber.cxx
         )
 find_package(Catch2)
 target_link_libraries(_test
