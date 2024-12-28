@@ -29,4 +29,9 @@ TEST_CASE ("ConstrainedNumber")
     auto test = ConstrainedNumber<int, notZero, 1>{};
     REQUIRE_THROWS (test.setValue (0));
   }
+  SECTION ("set to not allowed value in between", "[ConstrainedNumber]")
+  {
+    auto test = ConstrainedNumber<int, inBetween<1, 2>, 1>{};
+    REQUIRE_THROWS (test.setValue (0));
+  }
 }
