@@ -44,5 +44,5 @@ private:
 };
 
 auto constexpr notZero = [] (auto const &value) { return value != 0; };
-template <auto NumberToCompareTo> auto constexpr greaterSomeValue = [] (auto const &value) { return value != NumberToCompareTo; };
+template <auto NumberToCompareTo> auto constexpr greaterSomeValue = [] (auto const &value) { return value > NumberToCompareTo; };
 }
