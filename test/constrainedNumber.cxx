@@ -18,7 +18,7 @@ TEST_CASE ("ConstrainedNumber")
   SECTION ("compare", "[ConstrainedNumber]")
   {
     auto x = ConstrainedNumber<int, notZero, 1>{};
-    auto y = ConstrainedNumber<int, notZero, 1>{ 42 };
+    auto y = ConstrainedNumber<int, notZero, 42>{};
     REQUIRE (x < y);
   }
 

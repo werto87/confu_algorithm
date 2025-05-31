@@ -12,10 +12,8 @@ template <typename T, auto UnaryPredicate, T defaultValue = {}> requires (std::i
 {
 public:
   using value_type = T;
-  ConstrainedNumber () = default;
 
-  ConstrainedNumber (T const &_value) { setValue (_value); };
-  ConstrainedNumber (T &&_value) { setValue (std::move (_value)); };
+  operator T () const { return value; }
 
   void
   setValue (T const &_value)
@@ -37,9 +35,6 @@ public:
     return value;
   }
 
-  // clang-format off
-  auto operator<=>(const ConstrainedNumber&) const = default;
-  // clang-format on
 private:
   T value = defaultValue;
 };
@@ -47,5 +42,4 @@ private:
 auto constexpr notZero = [] (auto const &value) { return value != 0; };
 template <auto NumberToCompareTo> auto constexpr greaterSomeValue = [] (auto const &value) { return value > NumberToCompareTo; };
 template <auto min, auto max> auto constexpr inBetween = [] (auto const &value) { return value >= min && value <= max; };
-
 }
