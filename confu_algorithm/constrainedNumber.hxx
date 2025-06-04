@@ -39,7 +39,7 @@ private:
   T value = defaultValue;
 };
 
-auto constexpr notZero = [] (auto const &value) { return value != 0; };
+inline auto constexpr notZero = [] (auto const &value) { return value != 0; };
 template <auto NumberToCompareTo> auto constexpr greaterSomeValue = [] (auto const &value) { return value > NumberToCompareTo; };
 template <auto min, auto max> auto constexpr inBetween = [] (auto const &value) { return value >= min && value <= max; };
 }
