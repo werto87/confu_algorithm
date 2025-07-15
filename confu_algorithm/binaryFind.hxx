@@ -13,7 +13,9 @@ namespace confu_algorithm
 {
 
 // Copied from https://en.cppreference.com/w/cpp/algorithm/ranges/lower_bound
+
 template <std::forward_iterator I, std::sentinel_for<I> S, class T, class Proj = std::identity, std::indirect_strict_weak_order<const T *, std::projected<I, Proj> > Comp = std::ranges::less>
+[[nodiscard]]
 constexpr I
 binaryFind (I first, S last, const T &value, Comp comp = {}, Proj proj = {})
 {

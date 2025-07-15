@@ -31,6 +31,7 @@ namespace confu_algorithm
  * the second chain starts from index 2 goes to index 5 [1,1,1] index 5 marks the end which is the last element plus one
  */
 template <typename T = uint64_t>
+[[nodiscard]]
 std::vector<T>
 chainBreaks (auto cbegin, auto cend, auto pred)
 {
@@ -80,6 +81,7 @@ chainBreaks (auto cbegin, auto cend, auto pred)
  * the second chain starts from index 3 goes to index 5 [1,1] index 5 marks the end which is the last element plus one
  */
 template <typename T = uint64_t>
+[[nodiscard]]
 std::vector<T>
 chainBreaksIncludeBreakingElement (auto cbegin, auto cend, auto pred)
 {
@@ -121,7 +123,7 @@ chainBreaksIncludeBreakingElement (auto cbegin, auto cend, auto pred)
  * example output:
  * [[0,0],[1,1,1]]
  */
-
+[[nodiscard]]
 auto
 createChainViews (std::contiguous_iterator auto cbegin, std::contiguous_iterator auto cend, auto pred)
 {
@@ -148,7 +150,7 @@ createChainViews (std::contiguous_iterator auto cbegin, std::contiguous_iterator
  * example output:
  * [[0,0,1],[1,1]]
  */
-
+[[nodiscard]]
 auto
 createChainViewsIncludeBreakingElement (std::contiguous_iterator auto cbegin, std::contiguous_iterator auto cend, auto pred)
 {

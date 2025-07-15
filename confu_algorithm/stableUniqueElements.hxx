@@ -14,6 +14,7 @@ namespace confu_algorithm
  * @return copy of sequence minus duplicate elements
  */
 template <typename T>
+[[nodiscard]]
 T
 stableUniqueElements (T const &sequence)
 {

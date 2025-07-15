@@ -4,6 +4,7 @@
 
 namespace confu_algorithm
 {
+[[nodiscard]]
 std::optional<int64_t>
 findIndex (auto const &vec, auto const &value)
 {
@@ -17,7 +18,7 @@ findIndex (auto const &vec, auto const &value)
       return std::nullopt;
     }
 }
-
+[[nodiscard]]
 std::optional<int64_t>
 findIndex (auto const &vec, auto const &value, auto pred)
 {
