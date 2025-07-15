@@ -4,6 +4,7 @@ add_executable(_test
         stableUniqueElements.cxx
         binaryFind.cxx
         constrainedNumber.cxx
+        findIndex.cxx
         )
 find_package(Catch2)
 target_link_libraries(_test
